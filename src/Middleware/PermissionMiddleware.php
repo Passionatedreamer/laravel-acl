@@ -18,16 +18,11 @@ class PermissionMiddleware
     {
         if (! $request->user() || ! $request->user()->can($permission)) {
             if ($request->ajax()) {
-                return response()->json([
-                    'error' => [
-                        'status_code' => 401,
-                        'code'        => 'INSUFFICIENT_PERMISSIONS',
-                        'description' => 'You are not authorized to access this resource.',
-                    ],
-                ], 401);
+                $error = ['error' => ["You are not authorized to view this content!"]];
+                return response($error, 401); 
             }
 
-            return abort(401, 'You are not authorized to access this resource.');
+            return abort(401, 'You are not authorized to view this content!');
         }
 
         return $next($request);

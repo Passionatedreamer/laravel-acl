@@ -19,7 +19,12 @@ class CanAtLeastMiddleware
         $abilities = is_array($permissions) ? $permissions : explode(',', $permissions);
 
         if (! auth()->check() || ! auth()->user()->canAtLeast($abilities)) {
-            abort(403, 'You are not allowed to view this content!');
+            if ($request->ajax()) {
+                $error = ['error' => ["You are not authorized to view this content!"]];
+                return response($error, 401); 
+            }
+
+            return abort(401, 'You are not authorized to view this content!');
         }
 
         return $next($request);
