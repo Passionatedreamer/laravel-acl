@@ -15,4 +15,15 @@ return [
      * User class used for ACL.
      */
     'user' => App\User::class,
-];
+
+    /**
+     * True in case of Multi Tenant Application.
+     */
+    'multi-tenant' => false,
+
+    /**
+     * Master vs Tenant Connections.
+     */
+    'tenant' => 'tenant'
+
+    ];

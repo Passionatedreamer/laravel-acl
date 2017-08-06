@@ -12,12 +12,12 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::connection('tenant')->create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->boolean('system')->default(0);
+            $table->boolean('admin')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('roles');
+        Schema::connection('tenant')->drop('roles');
     }
 }
