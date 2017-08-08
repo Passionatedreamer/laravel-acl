@@ -12,7 +12,7 @@ use Yajra\Acl\Traits\RoleHasPermission;
 class Role extends Model
 {
     use RoleHasPermission;
-    protected $connection = 'tenant'
+    protected $connection = 'tenant';
 
     /**
      * The database table used by the model.
