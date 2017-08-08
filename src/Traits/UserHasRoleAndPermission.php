@@ -73,7 +73,7 @@ trait UserHasRoleAndPermission
      * @param  string $permission
      * @return bool
      */
-    public function can($permission, $arguments = Array)
+    public function can($permission, $arguments = Array())
     {
         $permissions = $this->getPermissions();
         if (is_array($permission)) {
