@@ -1,4 +1,4 @@
-rol<?php
+<?php
 
 namespace Yajra\Acl\Traits;
 
