@@ -12,6 +12,10 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
+        $db = config()->get('database.connections.master.database');
+        if(!$db) {
+            return;
+        }
         Schema::connection('tenant')->create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
