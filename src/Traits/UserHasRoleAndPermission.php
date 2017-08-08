@@ -84,7 +84,7 @@ trait UserHasRoleAndPermission
                     return false;
                 }
             }
-            return true
+            return true;
         } else {
             return in_array($permission, $permissions);
         }
