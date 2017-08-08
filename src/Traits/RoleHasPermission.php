@@ -44,7 +44,7 @@ trait RoleHasPermission
      */
     public function permissions()
     {
-        return $this->morphToMany(config('acl.permission', 'App\Models\Universal\Permission'), 'permissionable');
+        return $this->morphToMany(config('acl.permission', 'App\Models\Universal\Permission'), 'permissionable')->withPivot('owner', 'categories')->withTimestamps();
     }
 
     public function users()

@@ -225,7 +225,7 @@ trait UserHasRoleAndPermission
 
     public function permissions()
     {
-        return $this->morphToMany(config('acl.permission', 'App\Models\Universal\Permission'), 'permissionable')->withTimestamps();
+        return $this->morphToMany(config('acl.permission', 'App\Models\Universal\Permission'), 'permissionable')->withPivot('owner', 'categories')->withTimestamps();
     }
 
     /**
