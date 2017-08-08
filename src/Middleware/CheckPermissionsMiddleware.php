@@ -25,23 +25,18 @@ class CheckPermissionsMiddleware
         // Note this would fail when a request doesn't follow laravel standardized requests like: api/users/permissions or users/invite would not pass
 
             switch ($pathCount) {
-                case ($pathCount > 1):
+                case > 1:
             # Model
                 $model = $path[1];
 
-                case ($pathCount > 2):
+                case > 2:
             # Update or Report
                 $create = $path[2] == "create" ? true : false;
                 $record = is_int($path[2]);
                 $recordNumber = $record ? $path[2]: false;
                 $report = $path[2] == "reports" ? true : false;
-                $other = false;
-                if($report || $create || $record){
-                } else {
-                    $other = true;
-                }
-
-                case ($pathCount > 3 && !$other):
+                
+                case > 3:
             # View record or Report
                 if ($report) {
                 # code...
