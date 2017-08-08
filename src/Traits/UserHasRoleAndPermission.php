@@ -76,13 +76,13 @@ trait UserHasRoleAndPermission
     public function can($permission)
     {
         $permissions = $this->getPermissions();
-
         if (is_array($permission)) {
-            $permissionCount   = count($permission);
-            $intersection      = array_intersect($permissions, $permission);
-            $intersectionCount = count($intersection);
-
-            return ($permissionCount == $intersectionCount) ? true : false;
+            foreach ($permission as $perm) {
+                $intersection      = array_intersect($permissions, $perm);
+                $intersectionCount = count($intersection);
+                $intersectionCount == 0 ? return false :;
+            }
+            return true
         } else {
             return in_array($permission, $permissions);
         }
