@@ -4,7 +4,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Query\Expression;
 
-class CreatePermissionUserTable extends Migration
+class CreatePermissionablesTable extends Migration
 {
     /**
      * Run the migrations.
