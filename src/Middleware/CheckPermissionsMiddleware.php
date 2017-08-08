@@ -32,7 +32,7 @@ class PermissionMiddleware
             # Update or Report
                 $create = $path[2] == "create" ? true : false;
                 $record = is_int($path[2]);
-                $recordNumber = $record ? $path[2]:;
+                $recordNumber = $record ? $path[2]: false;
                 $report = $path[2] == "reports" ? true : false;
                 $other = false
                 if($report || $create || $record){
