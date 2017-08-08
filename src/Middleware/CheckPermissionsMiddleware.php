@@ -24,10 +24,6 @@ class PermissionMiddleware
         // Preparing variables for request permissions authorization
         // Note this would fail when a request doesn't follow laravel standardized requests like: api/users/permissions or users/invite would not pass
             switch ($pathCount) {
-                case ($pathCount > 0):
-            # API   
-                $path[0] == 'api' ? continue; : return response(["error" => ["You are not authorized to make this request"]],401);
-
                 case ($pathCount > 1):
             # Model
                 $model = $path[1];
