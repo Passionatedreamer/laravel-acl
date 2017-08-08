@@ -23,6 +23,7 @@ class PermissionMiddleware
 
         // Preparing variables for request permissions authorization
         // Note this would fail when a request doesn't follow laravel standardized requests like: api/users/permissions or users/invite would not pass
+
             switch ($pathCount) {
                 case ($pathCount > 1):
             # Model
@@ -121,16 +122,16 @@ class PermissionMiddleware
                 break;
             }
         }
-    }
-    if ($permission && (!$request->user() || !$request->user()->can($permission))){
-        if ($request->ajax()) {
-            $error = ['error' => ["You are not authorized to view this content!"]];
-            return response($error, 401); 
+        if ($permission && (!$request->user() || !$request->user()->can($permission))){
+            if ($request->ajax()) {
+                $error = ['error' => ["You are not authorized to view this content!"]];
+                return response($error, 401); 
+            }
+
+            return abort(401, 'You are not authorized to view this content!');
         }
 
-        return abort(401, 'You are not authorized to view this content!');
+        return $next($request);
     }
-    
-    return $next($request);
-}
+
 }
