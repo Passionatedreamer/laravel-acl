@@ -26,7 +26,7 @@ class PermissionMiddleware
             switch ($pathCount) {
                 case ($pathCount > 0):
             # API   
-                $path[0] == 'api' ? continue : return response(["error" => ["You are not authorized to make this request"]],401);
+                $path[0] == 'api' ? continue; : return response(["error" => ["You are not authorized to make this request"]],401);
 
                 case ($pathCount > 1):
             # Model
