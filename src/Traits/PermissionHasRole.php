@@ -20,7 +20,7 @@ trait PermissionHasRole
      */
     public function users()
     {
-        return $this->morphedByMany(config('auth.providers.users.model', 'App\User'), 'permissionable');
+        return $this->morphedByMany(config('auth.providers.users.model', 'App\User'), 'permissionable', config()->get('database.connections.tenant.database') . '.permissionables');
     }
 
     /**
