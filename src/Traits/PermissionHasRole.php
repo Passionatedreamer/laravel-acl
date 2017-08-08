@@ -1,4 +1,4 @@
-<?php
+rol<?php
 
 namespace Yajra\Acl\Traits;
 
@@ -7,6 +7,22 @@ use Yajra\Acl\Models\Role;
 
 trait PermissionHasRole
 {
+    /**
+     * Get all of the posts that are assigned this tag.
+     */
+    public function roles()
+    {
+        return $this->morphedByMany(config('acl.role', 'App\Models\Universal\Permission'), 'permissionable');
+    }
+
+    /**
+     * Get all of the videos that are assigned this tag.
+     */
+    public function users()
+    {
+        return $this->morphedByMany(config('auth.providers.users.model', 'App\User'), 'permissionable');
+    }
+
     /**
      * Attach a role to user using slug.
      *
@@ -46,16 +62,6 @@ trait PermissionHasRole
         }
 
         return false;
-    }
-
-    /**
-     * Model can have many roles.
-     *
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function roles()
-    {
-        return $this->belongsToMany(config('acl.role', Role::class))->withTimestamps();
     }
 
     /**

@@ -28,14 +28,9 @@ class Permission extends Model
      */
     protected $fillable = ['name', 'slug', 'resource'];
 
-    // public function usercategoriable()
+    // public function categories()
     // {
-    //     return $this->morphMany(config('acl.user', App\User::class), 'usercategoriable');
-    // }
-
-    // public function rolecategoriable()
-    // {
-    //     return $this->morphMany(config('acl.role', Role::class), 'rolecategoriable');
+    //     return $this->morphedByMany(config('acl.user', App\User::class), 'categoriable');
     // }
 
     /**
@@ -45,8 +40,7 @@ class Permission extends Model
      * @param bool $system
      * @return \Illuminate\Support\Collection
      */
-    // public static function createResource($resource, $admin = false)
-    public static function createResource($resource)
+    public static function createResource($resource, $manager = false)
     {
         $group        = ucfirst($resource);
         $slug         = strtolower($group);
@@ -55,31 +49,31 @@ class Permission extends Model
         'slug'     => $slug . '.read',
         'resource' => $slug,
         'name'     => 'Read ' . $group,
-        'admin'   => $admin,
+        'manager'   => $manager,
         ],
         [
         'slug'     => $slug . '.create',
         'resource' => $slug,
         'name'     => 'Create ' . $group,
-        'admin'   => $admin,
+        'manager'   => $manager,
         ],
         [
         'slug'     => $slug . '.update',
         'resource' => $slug,
         'name'     => 'Update ' . $group,
-        'admin'   => $admin,
+        'manager'   => $manager,
         ],
         [
         'slug'     => $slug . '.delete',
         'resource' => $slug,
         'name'     => 'Delete ' . $group,
-        'admin'   => $admin,
+        'manager'   => $manager,
         ],
         [
         'slug'     => $slug . '.report',
         'resource' => $slug,
         'name'     => 'Report ' . $group,
-        'admin'   => $admin,
+        'manager'   => $manager,
         ],
         ];
 

@@ -34,10 +34,6 @@ trait UserHasRoleAndPermission
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function permissions()
-    {
-        return $this->belongsToMany(config('acl.permission', Permission::class))->withTimestamps();
-    }
 
     /**
      * Revokes the given permission from the role or user.
@@ -227,9 +223,9 @@ trait UserHasRoleAndPermission
         return $this->belongsToMany(config('acl.role', Role::class))->withTimestamps();
     }
 
-    public function usercategoriable()
+    public function permissions()
     {
-        return $this->morphTo();
+        return $this->morphToMany(config('acl.permission', 'App\Models\Universal\Permission'), 'permissionable')->withTimestamps();
     }
 
     /**

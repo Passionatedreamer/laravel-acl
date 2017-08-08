@@ -26,20 +26,4 @@ class Role extends Model
      * @var array
      */
     protected $fillable = ['name', 'slug', 'description', 'system'];
-
-    /**
-     * Roles can belong to many users.
-     *
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function users()
-    {
-        return $this->belongsToMany(config('auth.providers.users.model'))
-        ->withTimestamps();
-    }
-
-    // public function rolecategoriable()
-    // {
-    //     return $this->morphTo();
-    // }
 }
