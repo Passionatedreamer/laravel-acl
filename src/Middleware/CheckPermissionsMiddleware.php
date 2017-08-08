@@ -44,7 +44,7 @@ class PermissionMiddleware
             # View record or Report
                 if ($report) {
                 # code...
-                    $reportName = $path[3]
+                    $reportName = $path[3];
                 } elseif ($path[3] == "view") {
                 # code...
                     $view = true;
