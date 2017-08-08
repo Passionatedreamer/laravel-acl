@@ -13,12 +13,13 @@ class CreatePermissionablesTable extends Migration
      */
     public function up()
     {
-        $db = config()->get('database.connections.master.database');
+        $db = config()->get('database.connections.tenant.database');
         if(!$db) {
             return;
         }
         Schema::connection('tenant')->create('permissionables', function (Blueprint $table) {
-            
+            $db = config()->get('database.connections.master.database');
+
             $table->increments('id');
             $table->integer('permission_id')->unsigned();
             $table->foreign('permission_id')->references('id')->on(new Expression($db . '.permissions'))->onDelete('cascade');

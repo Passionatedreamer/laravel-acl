@@ -12,7 +12,7 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        $db = config()->get('database.connections.master.database');
+        $db = config()->get('database.connections.tenant.database');
         if(!$db) {
             return;
         }
