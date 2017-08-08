@@ -116,10 +116,10 @@ class CheckPermissionsMiddleware
         if ($permission && (!$request->user() || !$request->user()->can($permission))){
             $error = ['error' => ["You are not authorized to view this content!"]];
             return response($error, 401); 
+            
         }
-    }
 
-    return $next($request);
-}
+        return $next($request);
+    }
 
 }
