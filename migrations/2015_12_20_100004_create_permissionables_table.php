@@ -49,6 +49,6 @@ class CreatePermissionablesTable extends Migration
      */
     public function down()
     {
-        Schema::connection('tenant')->drop('permission_user');
+        Schema::connection('tenant')->drop('permissionables');
     }
 }
