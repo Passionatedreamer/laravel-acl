@@ -122,7 +122,7 @@ class PermissionMiddleware
             }
         }
     }
-    if ($permission && (!$request->user() || !$request->user()->can($permission))) {
+    if ($permission && (!$request->user() || !$request->user()->can($permission))){
         if ($request->ajax()) {
             $error = ['error' => ["You are not authorized to view this content!"]];
             return response($error, 401); 
@@ -130,7 +130,7 @@ class PermissionMiddleware
 
         return abort(401, 'You are not authorized to view this content!');
     }
-
+    
     return $next($request);
 }
 }
