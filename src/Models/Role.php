@@ -3,7 +3,7 @@
 namespace Yajra\Acl\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Yajra\Acl\Traits\HasPermission;
+use Yajra\Acl\Traits\RoleHasPermission;
 
 /**
  * @property \Yajra\Acl\Models\Permission permissions
