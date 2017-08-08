@@ -20,6 +20,10 @@ class CreatePermissionUserTable extends Migration
             $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on(new Expression($db . '.users'))->onDelete('cascade');
+            $table->boolean('owner')->default(false);
+            $table->boolean('categories')->default(false);
+            // $table->integer('categoriable_id');
+            // $table->string('categoriable_type');
             $table->timestamps();
         });
     }

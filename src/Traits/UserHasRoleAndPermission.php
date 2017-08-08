@@ -7,7 +7,7 @@ use Yajra\Acl\Models\Role;
 use Yajra\Acl\Models\Permission;
 use App\User;
 
-trait HasRoleAndPermission
+trait UserHasRoleAndPermission
 {
 
     /**
@@ -71,26 +71,26 @@ trait HasRoleAndPermission
         return $this->permissions()->detach();
     }
 
-    // /**
-    //  * Checks if the role or user has the given permission.
-    //  *
-    //  * @param  string $permission
-    //  * @return bool
-    //  */
-    // public function can($permission)
-    // {
-    //     $permissions = $this->getPermissions();
+    /**
+     * Checks if the role or user has the given permission.
+     *
+     * @param  string $permission
+     * @return bool
+     */
+    public function can($permission)
+    {
+        $permissions = $this->getPermissions();
 
-    //     if (is_array($permission)) {
-    //         $permissionCount   = count($permission);
-    //         $intersection      = array_intersect($permissions, $permission);
-    //         $intersectionCount = count($intersection);
+        if (is_array($permission)) {
+            $permissionCount   = count($permission);
+            $intersection      = array_intersect($permissions, $permission);
+            $intersectionCount = count($intersection);
 
-    //         return ($permissionCount == $intersectionCount) ? true : false;
-    //     } else {
-    //         return in_array($permission, $permissions);
-    //     }
-    // }
+            return ($permissionCount == $intersectionCount) ? true : false;
+        } else {
+            return in_array($permission, $permissions);
+        }
+    }
 
     /**
      * Check if user have access using any of the acl.
@@ -222,9 +222,14 @@ trait HasRoleAndPermission
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-   public function roles()
+    public function roles()
     {
         return $this->belongsToMany(config('acl.role', Role::class))->withTimestamps();
+    }
+
+    public function usercategoriable()
+    {
+        return $this->morphTo();
     }
 
     /**
@@ -238,9 +243,9 @@ trait HasRoleAndPermission
     {
         return $query->whereExists(function ($query) use ($roles) {
             $query->selectRaw('1')
-                  ->from('role_user')
-                  ->whereRaw('role_user.user_id = users.id')
-                  ->whereIn('role_id', $roles);
+            ->from('role_user')
+            ->whereRaw('role_user.user_id = users.id')
+            ->whereIn('role_id', $roles);
         });
     }
 
@@ -331,25 +336,6 @@ trait HasRoleAndPermission
         }
 
         return parent::__call($method, $arguments);
-    }
-
-    /**
-     * Checks if the user has the given role.
-     *
-     * @param  string $slug
-     * @return bool
-     */
-    public function isRole($slug)
-    {
-        $slug = Str::lower($slug);
-
-        foreach ($this->roles as $role) {
-            if ($role->slug == $slug) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**

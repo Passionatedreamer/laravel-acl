@@ -5,7 +5,7 @@ namespace Yajra\Acl\Traits;
 use Illuminate\Support\Str;
 use Yajra\Acl\Models\Role;
 
-trait HasRole
+trait PermissionHasRole
 {
     /**
      * Attach a role to user using slug.
@@ -69,9 +69,9 @@ trait HasRole
     {
         return $query->whereExists(function ($query) use ($roles) {
             $query->selectRaw('1')
-                  ->from('role_user')
-                  ->whereRaw('role_user.user_id = users.id')
-                  ->whereIn('role_id', $roles);
+            ->from('role_user')
+            ->whereRaw('role_user.user_id = users.id')
+            ->whereIn('role_id', $roles);
         });
     }
 
@@ -118,24 +118,6 @@ trait HasRole
     public function revokeAllRoles()
     {
         return $this->roles()->detach();
-    }
-
-    /**
-     * Get all user role permissions.
-     *
-     * @return array|null
-     */
-    public function getPermissions()
-    {
-        $permissions = [[], []];
-
-        foreach ($this->roles as $role) {
-            $permissions[] = $role->getPermissions();
-        }
-
-        $permissions[] = $this->permissions->pluck('slug')->toArray();
-
-        return call_user_func_array('array_merge', $permissions);
     }
 
     /**

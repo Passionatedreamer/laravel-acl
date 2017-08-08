@@ -11,7 +11,7 @@ use Yajra\Acl\Traits\HasPermission;
  */
 class Role extends Model
 {
-    use HasPermission;
+    use RoleHasPermission;
 
     /**
      * The database table used by the model.
@@ -35,6 +35,11 @@ class Role extends Model
     public function users()
     {
         return $this->belongsToMany(config('auth.providers.users.model'))
-                    ->withTimestamps();
+        ->withTimestamps();
     }
+
+    // public function rolecategoriable()
+    // {
+    //     return $this->morphTo();
+    // }
 }

@@ -5,10 +5,10 @@ namespace Yajra\Acl\Traits;
 use Yajra\Acl\Models\Permission;
 use App\User;
 
-trait HasPermission
+trait RoleHasPermission
 {
     /**
-     * Assigns the given permission to the role or user.
+     * Assigns the given permission to the role .
      *
      * @param  int $permissionId
      * @return bool
@@ -27,6 +27,17 @@ trait HasPermission
     }
 
     /**
+     * Attach a permission to role
+     *
+     * @param  Role $role
+     * @return boolean
+     */
+    public function attachPermission(Permissions $permission)
+    {
+        return $this->assignRole($permission->id);
+    }
+
+    /**
      * Get related permissions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -38,10 +49,10 @@ trait HasPermission
 
     public function users()
     {
-        return $this->belongsToMany(config('acl.user', Permission::class))->withTimestamps();
+        return $this->belongsToMany(config('acl.user', App\User::class))->withTimestamps();
     }
     /**
-     * Revokes the given permission from the role or user.
+     * Revokes the given permission from the role.
      *
      * @param  int|null $permissionId
      * @return bool
@@ -52,7 +63,7 @@ trait HasPermission
     }
 
     /**
-     * Syncs the given permission(s) with the role or user.
+     * Syncs the given permission(s) with the role.
      *
      * @param  array $permissionIds
      * @return array|bool
@@ -63,7 +74,7 @@ trait HasPermission
     }
 
     /**
-     * Revokes all permissions from the role or user.
+     * Revokes all permissions from the role.
      *
      * @return bool
      */
@@ -73,7 +84,7 @@ trait HasPermission
     }
 
     /**
-     * Checks if the role or user has the given permission.
+     * Checks if the role has the given permission.
      *
      * @param  string $permission
      * @return bool
@@ -104,7 +115,7 @@ trait HasPermission
     }
 
     /**
-     * Check if the role or user has at least one of the given permissions.
+     * Check if the role has at least one of the given permissions.
      *
      * @param  array $permission
      * @return bool

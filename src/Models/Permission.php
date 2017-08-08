@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Permission extends Model
 {
-    use HasRole;
+    use PermissionHasRole;
 
     /**
      * The database table used by the model.
@@ -26,7 +26,17 @@ class Permission extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'resource', 'system'];
+    protected $fillable = ['name', 'slug', 'resource'];
+
+    // public function usercategoriable()
+    // {
+    //     return $this->morphMany(config('acl.user', App\User::class), 'usercategoriable');
+    // }
+
+    // public function rolecategoriable()
+    // {
+    //     return $this->morphMany(config('acl.role', Role::class), 'rolecategoriable');
+    // }
 
     /**
      * Create a permissions for a resource.
@@ -35,35 +45,42 @@ class Permission extends Model
      * @param bool $system
      * @return \Illuminate\Support\Collection
      */
-    public static function createResource($resource, $system = false)
+    // public static function createResource($resource, $admin = false)
+    public static function createResource($resource)
     {
         $group        = ucfirst($resource);
         $slug         = strtolower($group);
         $permissions  = [
-            [
-                'slug'     => $slug . '.view',
-                'resource' => $group,
-                'name'     => 'View ' . $group,
-                'system'   => $system,
-            ],
-            [
-                'slug'     => $slug . '.create',
-                'resource' => $group,
-                'name'     => 'Create ' . $group,
-                'system'   => $system,
-            ],
-            [
-                'slug'     => $slug . '.update',
-                'resource' => $group,
-                'name'     => 'Update ' . $group,
-                'system'   => $system,
-            ],
-            [
-                'slug'     => $slug . '.delete',
-                'resource' => $group,
-                'name'     => 'Delete ' . $group,
-                'system'   => $system,
-            ],
+        [
+        'slug'     => $slug . '.read',
+        'resource' => $slug,
+        'name'     => 'Read ' . $group,
+        'admin'   => $admin,
+        ],
+        [
+        'slug'     => $slug . '.create',
+        'resource' => $slug,
+        'name'     => 'Create ' . $group,
+        'admin'   => $admin,
+        ],
+        [
+        'slug'     => $slug . '.update',
+        'resource' => $slug,
+        'name'     => 'Update ' . $group,
+        'admin'   => $admin,
+        ],
+        [
+        'slug'     => $slug . '.delete',
+        'resource' => $slug,
+        'name'     => 'Delete ' . $group,
+        'admin'   => $admin,
+        ],
+        [
+        'slug'     => $slug . '.report',
+        'resource' => $slug,
+        'name'     => 'Report ' . $group,
+        'admin'   => $admin,
+        ],
         ];
 
         $collection = new Collection;
