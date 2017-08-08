@@ -16,7 +16,7 @@ class PermissionMiddleware
      */
     public function handle($request, Closure $next, $permission = null)
     {
-        if(!$permission){
+        if(!$permission && $request->){
             $uri = $request->path();
             $path = explode('/', $uri);
             $pathCount = count($path);
