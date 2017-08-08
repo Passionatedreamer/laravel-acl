@@ -34,10 +34,10 @@ class PermissionMiddleware
                 $record = is_int($path[2]);
                 $recordNumber = $record ? $path[2]: false;
                 $report = $path[2] == "reports" ? true : false;
-                $other = false
+                $other = false;
                 if($report || $create || $record){
                 } else {
-                    $other = true
+                    $other = true;
                 }
 
                 case ($pathCount > 3 && !$other):
@@ -51,7 +51,7 @@ class PermissionMiddleware
                 }
                 break;
                 default:
-                return response(["error" => ["Request at " . $path . " not Recognized"]],403)
+                return response(["error" => ["Request at " . $path . " not Recognized"]],403);
                 break;
             }
             switch ($pathCount) {
@@ -63,10 +63,10 @@ class PermissionMiddleware
                 # store: api/sales post - model.create
                 if($request->isMethod('get')){
                     #Check model.read
-                    $permission = $model . ".read"
+                    $permission = $model . ".read";
                 } elseif ($request->isMethod('post')){
                     #Check for model.create
-                    $permission = $model . ".create"
+                    $permission = $model . ".create";
                 }
                 break;
                 case 3:
@@ -77,31 +77,31 @@ class PermissionMiddleware
                 # report: api/sales/reports get - model.report
                 if($create){
                     #Check for model.create
-                    $permission = $model . ".create"
+                    $permission = $model . ".create";
                 } elseif ($record){
                     switch ($request->method()) {
                         case 'get':
                             #Check for model.read
-                        $permission = $model . ".read"
+                        $permission = $model . ".read";
                         break;
 
                         case 'patch':
                             #Check for model.update
-                        $permission = $model . ".update"
+                        $permission = $model . ".update";
                         break;
 
                         case 'delete':
                             #Check for model.delete
-                        $permission = $model . ".delete"
+                        $permission = $model . ".delete";
                         break;
 
                         default:
-                        return response(["error" => ["You are not authorized to make this request"]],401)
+                        return response(["error" => ["You are not authorized to make this request"]],401);
                         break;
                     }
                 } elseif ($report) {
                     #Check for model.report
-                    $permission = $model . ".report"
+                    $permission = $model . ".report";
                 }
                 break;
                 case 4:
@@ -109,10 +109,10 @@ class PermissionMiddleware
                 # Edit : api/sales/1/edit - model.update
                 if($report){
                     #Check for model.report
-                    $permission = $model . ".report"
+                    $permission = $model . ".report";
                 } elseif ($record){
                     #Check for model.update
-                    $permission = $model . ".update"
+                    $permission = $model . ".update";
                 }
                 break;
 
