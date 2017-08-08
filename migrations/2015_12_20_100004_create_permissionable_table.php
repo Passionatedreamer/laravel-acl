@@ -23,7 +23,7 @@ class CreatePermissionUserTable extends Migration
             // $table->foreign('user_id')->references('id')->on(new Expression($db . '.users'))->onDelete('cascade');
             
             $table->boolean('owner')->default(false);
-
+            $table->boolean('manager')->default(false);
             // Whether for Role or User
             $table->integer('permissionable_id');
             $table->string('permissionable_type');

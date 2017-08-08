@@ -40,7 +40,8 @@ class Permission extends Model
      * @param bool $system
      * @return \Illuminate\Support\Collection
      */
-    public static function createResource($resource, $manager = false)
+    // public static function createResource($resource, $manager = false)
+    public static function createResource($resource)
     {
         $group        = ucfirst($resource);
         $slug         = strtolower($group);
@@ -49,31 +50,31 @@ class Permission extends Model
         'slug'     => $slug . '.read',
         'resource' => $slug,
         'name'     => 'Read ' . $group,
-        'manager'   => $manager,
+        // 'manager'   => $manager,
         ],
         [
         'slug'     => $slug . '.create',
         'resource' => $slug,
         'name'     => 'Create ' . $group,
-        'manager'   => $manager,
+        // 'manager'   => $manager,
         ],
         [
         'slug'     => $slug . '.update',
         'resource' => $slug,
         'name'     => 'Update ' . $group,
-        'manager'   => $manager,
+        // 'manager'   => $manager,
         ],
         [
         'slug'     => $slug . '.delete',
         'resource' => $slug,
         'name'     => 'Delete ' . $group,
-        'manager'   => $manager,
+        // 'manager'   => $manager,
         ],
         [
         'slug'     => $slug . '.report',
         'resource' => $slug,
         'name'     => 'Report ' . $group,
-        'manager'   => $manager,
+        // 'manager'   => $manager,
         ],
         ];
 
