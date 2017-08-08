@@ -80,7 +80,9 @@ trait UserHasRoleAndPermission
             foreach ($permission as $perm) {
                 $intersection      = array_intersect($permissions, $perm);
                 $intersectionCount = count($intersection);
-                $intersectionCount == 0 ? return false :;
+                if($intersectionCount == 0){
+                    return false;
+                }
             }
             return true
         } else {
