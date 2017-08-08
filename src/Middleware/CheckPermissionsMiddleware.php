@@ -21,23 +21,23 @@ class CheckPermissionsMiddleware
             $path = explode('/', $uri);
             $pathCount = count($path);
 
-        // Preparing variables for request permissions authorization
-        // Note this would fail when a request doesn't follow laravel standardized requests like: api/users/permissions or users/invite would not pass
-
-            switch ($pathCount) {
-                case $pathCount > 1:
-            # Model
+            // Preparing variables for request permissions authorization
+            // Note this would fail when a request doesn't follow laravel standardized requests like: api/users/permissions or users/invite would not pass
+            if ($pathCount > 1) {
+                # Model
                 $model = $path[1];
-
-                case $pathCount > 2:
-            # Update or Report
+            }else{
+                return response(["error" => ["Request at " . $path . " not Recognized"]],403);
+            }
+            if ($pathCount > 2) {
+                # Update or Report
                 $create = $path[2] == "create" ? true : false;
                 $record = is_int($path[2]);
                 $recordNumber = $record ? $path[2]: false;
                 $report = $path[2] == "reports" ? true : false;
-
-                case $pathCount > 3:
-            # View record or Report
+            }
+            if ($pathCount > 3) {
+                # View record or Report
                 if ($report) {
                 # code...
                     $reportName = $path[3];
@@ -45,10 +45,6 @@ class CheckPermissionsMiddleware
                 # code...
                     $view = true;
                 }
-                break;
-                default:
-                return response(["error" => ["Request at " . $path . " not Recognized"]],403);
-                break;
             }
             switch ($pathCount) {
                 case 1:
