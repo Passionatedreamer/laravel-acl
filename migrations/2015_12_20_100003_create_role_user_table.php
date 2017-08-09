@@ -13,7 +13,7 @@ class CreateRoleUserTable extends Migration
      */
     public function up()
     {
-        Schema::connection('tenant')->create('role_user', function (Blueprint $table) {
+        Schema::connection('tenant')->create('company_user_role', function (Blueprint $table) {
             $db = config()->get('database.connections.master.database');
 
             $table->increments('id');
