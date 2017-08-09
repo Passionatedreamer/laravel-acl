@@ -222,7 +222,7 @@ trait CompanyUserHasRoleAndPermission
      */
     public function roles()
     {
-        return $this->belongsToMany(config('acl.role', Role::class))->withTimestamps();
+        return $this->belongsToMany(config('acl.role', Role::class), config()->get('database.connections.tenant.database') . '.company_user_role')->withTimestamps();
     }
 
     public function permissions()
