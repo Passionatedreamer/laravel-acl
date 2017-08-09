@@ -18,9 +18,9 @@ trait PermissionHasRole
     /**
      * Get all of the videos that are assigned this tag.
      */
-    public function users()
+    public function companyusers()
     {
-        return $this->morphedByMany(config('auth.providers.users.model', 'App\User'), 'permissionable', config()->get('database.connections.tenant.database') . '.permissionables');
+        return $this->morphedByMany(config('acl.companyUser', 'App\Models\Universal\CompanyUser'), 'permissionable', config()->get('database.connections.tenant.database') . '.permissionables');
     }
 
     /**
