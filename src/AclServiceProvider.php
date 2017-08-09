@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\View\Compilers\BladeCompiler;
 use Yajra\Acl\Models\Permission;
 use Yajra\Acl\Models\Role;
+use Yajra\Acl\Models\Acl;
 
 class AclServiceProvider extends ServiceProvider
 {
@@ -18,8 +19,6 @@ class AclServiceProvider extends ServiceProvider
      * @param  \Illuminate\Contracts\Auth\Access\Gate $gate
      * @return void
      */
-    public static $runsMigrations = false;
-
     public function boot(GateContract $gate)
     {
         $this->publishConfig();
@@ -45,7 +44,7 @@ class AclServiceProvider extends ServiceProvider
      */
     protected function publishMigrations()
     {
-        if($runsMigrations){
+        if(Acl::$runMigrations){
             $this->loadMigrationsFrom(__DIR__ . '/../migrations');
         }
         $this->publishes([
