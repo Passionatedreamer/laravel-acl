@@ -22,6 +22,7 @@ class Permission extends Model
      * @var string
      */
     protected $table = 'permissions';
+    protected $connection = 'master';
 
     /**
      * @var array
