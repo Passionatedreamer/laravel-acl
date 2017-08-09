@@ -18,6 +18,8 @@ class AclServiceProvider extends ServiceProvider
      * @param  \Illuminate\Contracts\Auth\Access\Gate $gate
      * @return void
      */
+    public static $runsMigrations = false;
+
     public function boot(GateContract $gate)
     {
         $this->publishConfig();
@@ -35,7 +37,7 @@ class AclServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../config/acl.php' => config_path('acl.php'),
-        ], 'laravel-acl');
+            ], 'laravel-acl');
     }
 
     /**
@@ -43,10 +45,12 @@ class AclServiceProvider extends ServiceProvider
      */
     protected function publishMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+        if($runsMigrations){
+            $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+        }
         $this->publishes([
             __DIR__ . '/../migrations' => database_path('migrations')
-        ], 'laravel-acl');
+            ], 'laravel-acl');
     }
 
     /**
