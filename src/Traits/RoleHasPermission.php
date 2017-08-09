@@ -47,10 +47,16 @@ trait RoleHasPermission
         return $this->morphToMany(config('acl.permission', 'App\Models\Universal\Permission'), 'permissionable')->withPivot('owner', 'categories', 'manager')->withTimestamps();
     }
 
-    public function users()
+    // public function users()
+    // {
+    //     return $this->belongsToMany(config('acl.user', App\User::class))->withTimestamps();
+    // }
+
+    public function companyusers()
     {
-        return $this->belongsToMany(config('acl.user', App\User::class))->withTimestamps();
+        return $this->belongsToMany(config('acl.companyUser', App\Models\Universal\CompanyUser::class))->withTimestamps();
     }
+
     /**
      * Revokes the given permission from the role.
      *

@@ -7,7 +7,7 @@ use Yajra\Acl\Models\Role;
 use Yajra\Acl\Models\Permission;
 use App\User;
 
-trait UserHasRoleAndPermission
+trait CompanyUserHasRoleAndPermission
 {
 
     /**

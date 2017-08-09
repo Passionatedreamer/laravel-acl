@@ -15,4 +15,9 @@ return [
      * User class used for ACL.
      */
     'user' => App\User::class,
+
+    /**
+     * Pivot Table of Companies and Users for ACL
+     */
+    'companyUser' => App\Models\Universal\CompanyUser::class,
     ];
