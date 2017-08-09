@@ -23,8 +23,8 @@ class CreateRoleUserTable extends Migration
             $table->increments('id');
             $table->integer('role_id')->unsigned()->index();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-            $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on(new Expression($db . '.users'))->onDelete('cascade');
+            $table->integer('companyuser_id')->unsigned()->index();
+            $table->foreign('companyuser_id')->references('id')->on(new Expression($db . '.company_user'))->onDelete('cascade');
             $table->timestamps();
         });
     }
