@@ -54,7 +54,7 @@ trait RoleHasPermission
 
     public function companyusers()
     {
-        return $this->belongsToMany(config('acl.companyUser', \App\Models\Universal\CompanyUser::class))->withTimestamps();
+        return $this->belongsToMany(config('acl.companyUser', \App\Models\Universal\CompanyUser::class), config()->get('database.connections.master.database') . '.company_user')->withTimestamps();
     }
 
     /**
