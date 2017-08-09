@@ -242,7 +242,7 @@ trait CompanyUserHasRoleAndPermission
         return $query->whereExists(function ($query) use ($roles) {
             $query->selectRaw('1')
             ->from('role_user')
-            ->whereRaw('role_user.user_id = users.id')
+            ->whereRaw('role_user.companyuser_id = company_user.id')
             ->whereIn('role_id', $roles);
         });
     }
@@ -343,7 +343,7 @@ trait CompanyUserHasRoleAndPermission
      * @param string $relation
      * @return bool
      */
-    public function owns($entity, $relation = 'user_id')
+    public function owns($entity, $relation = 'companyuser_id')
     {
         return $this->id === $entity->{$relation};
     }
