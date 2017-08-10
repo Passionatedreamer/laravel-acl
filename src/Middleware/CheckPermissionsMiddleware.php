@@ -113,7 +113,7 @@ class CheckPermissionsMiddleware
                 break;
             }
         }
-        if ($permission && (!$request->user() || !$request->user()->can($permission))){
+        if ($permission && (!$request->user() || !$request->get('companyUser')->can($permission))){
             $error = ['error' => ["You are not authorized to view this content!"]];
             return response($error, 401); 
             
